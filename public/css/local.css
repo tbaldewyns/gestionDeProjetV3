@@ -1,0 +1,99 @@
+.container .border .green,
+.container .border .orange,
+.container .border .red,
+.container .localBorder .green,
+.container .localBorder .orange,
+.container .localBorder .red {
+  position: relative;
+  margin-top: 25px;
+  height: 300px;
+  width: 300px;
+  border-radius: 10px;
+}
+
+.container .localBorder .green,
+.container .localBorder .orange,
+.container .localBorder .red {
+  position: absolute;
+  margin-left: 23px;
+}
+
+.container .border .green,
+.container .border .orange,
+.container .border .red {
+  margin-left: 23px;
+}
+.container .green {
+  background-color: blue;
+}
+.container .orange {
+  background-color: violet;
+}
+
+.container .red {
+  background-color: black;
+}
+
+.localBorder {
+  width: 350px;
+  height: 350px;
+  border-radius: 10px;
+  margin-top: 50px;
+  background-color: white;
+}
+
+.date,
+.value {
+  color: white;
+}
+
+.date {
+  padding-top: 10px;
+  font-size: 25px;
+}
+
+.value {
+  padding-top: 15%;
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.diffDate {
+  position: absolute;
+  bottom: 5%;
+}
+.diffDate p {
+  text-align: center;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 10px;
+}
+
+#whiteText {
+  color: white;
+}
+#redText {
+  color: red;
+}
+
+.legend {
+  margin-top: 15px;
+}
+.legend div {
+  padding: 5px;
+  margin: 5px;
+  width: 250px;
+  border-radius: 10px;
+}
+.legend div p {
+  color: white;
+}
+.greenCode {
+  background-color: blue;
+}
+.orangeCode {
+  background-color: violet;
+}
+.redCode {
+  background-color: black;
+}

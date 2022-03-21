@@ -1,0 +1,177 @@
+.linkToStage {
+  position: absolute;
+  top: 20%;
+  right: 20%;
+  background-color: white;
+  padding: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border: 2px solid blueviolet;
+  z-index: 2;
+  border-radius: 10px;
+}
+
+.linkToStage:hover {
+  background-color: blueviolet;
+  color: white;
+}
+
+.linkToStage p:hover {
+  color: white;
+}
+
+.linkToStage a:hover {
+  text-decoration: none;
+  color: white;
+}
+.card {
+  background-color: white;
+  margin-top: 50px;
+  height: 600px;
+  z-index: -1;
+  width: auto;
+  border-radius: 10px;
+  margin-left: 100px;
+  margin-right: 100px;
+}
+.horizontalLocal {
+  height: 150px;
+  width: 350px;
+  position: absolute;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.verticalLocal {
+  height: 300px;
+  width: 150px;
+  position: absolute;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.littleVerticalLocal {
+  text-align: center;
+  height: 200px;
+  width: 100px;
+  position: absolute;
+  border-radius: 10px;
+}
+
+#local1303,
+#local2503,
+#local1503,
+#local1507,
+#local1508,
+#local2106 {
+  background-color: blueviolet;
+  color: white;
+  z-index: 2;
+  border: 2px solid white;
+}
+
+#local1303:hover,
+#local2503:hover,
+#local1503:hover,
+#local1507:hover,
+#local1508:hover,
+#local2106:hover {
+  background-color: white;
+  color: blueviolet;
+  border: 2px solid blueviolet;
+}
+
+#local2106 {
+  left: 40%;
+  top: 30%;
+}
+
+#local1303 {
+  left: 20%;
+  top: 65%;
+}
+
+#local2503 {
+  left: 20%;
+  top: 65%;
+}
+
+#local1503 {
+  left: 40%;
+  top: 30%;
+}
+
+#local1507 {
+  left: 50%;
+  top: 70%;
+}
+
+#local1508 {
+  left: 62%;
+  top: 70%;
+}
+
+@media screen and (max-width: 1000px) {
+  .horizontalLocal {
+    height: 100px;
+    width: 200px;
+  }
+
+  .verticalLocal {
+    height: 200px;
+    width: 100px;
+  }
+
+  .littleVerticalLocal {
+    height: 150px;
+    width: 75px;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .card {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+  .horizontalLocal {
+    height: 100px;
+    width: 200px;
+  }
+
+  .verticalLocal {
+    height: 200px;
+    width: 100px;
+  }
+
+  .littleVerticalLocal {
+    height: 150px;
+    width: 75px;
+  }
+  #local1508 {
+    left: 65%;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .card {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+  .horizontalLocal {
+    height: 100px;
+    width: 200px;
+  }
+
+  .verticalLocal {
+    height: 200px;
+    width: 100px;
+  }
+
+  .littleVerticalLocal {
+    height: 150px;
+    width: 75px;
+  }
+  #local1508 {
+    left: 65%;
+  }
+}
