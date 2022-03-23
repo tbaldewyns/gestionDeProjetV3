@@ -11,6 +11,27 @@
 {% block body %}
 <div class="container">
     <center>
+
+        <div class="form">
+            {{form_start(searchForm)}}
+            {{ form_errors(searchForm) }}
+            <div class="inputs">
+                <div class="input">
+                    {{form_row(searchForm.type)}}
+                </div>
+                <div class="input">
+                    {{form_row(searchForm.local)}}
+                </div>
+                <div class="input">
+                    {{form_row(searchForm.frequence)}}
+                </div>            
+            </div>
+            <div class="searchBtn">
+                <button type="submit">Search</button>
+            </div>
+
+            {{form_end(searchForm)}}
+        </div>
         <div class="charts">
             <canvas id="co2Chart"></canvas>
         </div>
@@ -51,7 +72,7 @@
                         <td>{{data.type.value}}</td>
                         <td>{{data.local}}</td>
                         <td>{{data.sensorNbr}}</td>
-                        <td>{{data.sendedAt |date('d-m-Y g:i a')}}</td>
+                        <td>{{data.sendedAt |date('d-m-Y G:i')}}</td>
                     </tr>
                 {% endfor %}
             </table>
@@ -82,7 +103,7 @@
                 ticks: {
                     beginAtZero: true,
                     min: 0,
-                    max: 1000
+                    max: 3000
                 }
 
             }]
@@ -149,7 +170,7 @@
 <script>
     let pieCategories = document.querySelector("#pieChart")
     let pieCategGraph = new Chart(pieCategories, {
-        type: "pie",
+        type: "doughnut",
         data: {
             labels: ["<600", ">600 & < 900", ">900"],
             datasets: [{

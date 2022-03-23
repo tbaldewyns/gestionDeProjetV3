@@ -1,7 +1,11 @@
+.dataDetails {
+  margin-top: 20px;
+  display: inline-flex;
+}
 .border {
-  position: absolute;
-  top: 30%;
-  left: 1%;
+  position: relative;
+  margin-left: 50px;
+  margin-right: 50px;
   border-radius: 10px;
   background-color: white;
   height: 350px;
@@ -25,9 +29,9 @@
 }
 
 .history {
-  position: absolute;
-  left: 32%;
-  top: 30%;
+  margin-left: 50px;
+  margin-right: 50px;
+  position: relative;
   border-radius: 10px;
   background-color: white;
   padding: 30px;
@@ -69,22 +73,71 @@
   color: white;
 }
 #redText {
-  color: red;
+  color: orange;
 }
 .pieChart {
   position: absolute;
-  top: 30%;
-  right: -10%;
-  width: 700px;
+  top: 35%;
+  right: 0%;
+  height: 300px;
+  width: 400px;
+  margin-left: -100px;
 }
 
-#co2Chart,
-#temperatureChart,
-#humidityChart {
-  background-color: white;
-  margin-bottom: 15px;
-  border-radius: 10px;
+.lineCharts {
+  margin-top: 50px;
 }
-#co2Chart {
-  margin-top: 500px;
+.charts {
+  width: 650px;
+  display: inline-flex;
+}
+
+.charts canvas {
+  background-color: white;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+@media screen and (max-width: 1320px) {
+  .charts {
+    width: 900px;
+  }
+}
+
+@media screen and (max-width: 1050px) {
+  .charts {
+    width: 730px;
+  }
+  .dataDetails {
+    display: block;
+  }
+
+  .border,
+  .history {
+    margin: 20px;
+  }
+  .history {
+    height: 300px;
+  }
+}
+
+@media screen and (max-width: 770px) {
+  .charts {
+    width: 500px;
+  }
+  .charts canvas {
+    margin: 0px;
+    font-size: 10px;
+  }
+  .history {
+    font-size: 10px;
+  }
+}
+@media screen and (max-width: 500px) {
+  .charts {
+    width: 350px;
+  }
+  .border {
+    margin: 5px;
+  }
 }

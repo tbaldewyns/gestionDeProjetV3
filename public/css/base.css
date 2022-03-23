@@ -53,15 +53,15 @@ a {
 
 @media screen and (max-width: 1000px) {
   .shape1 {
-    height: 300px;
-    width: 450px;
+    height: 400px;
+    width: 600px;
     top: 10%;
     left: -35%;
   }
 
   .shape2 {
-    height: 300px;
-    width: 450px;
+    height: 400px;
+    width: 600px;
     top: 10%;
     right: -35%;
   }
@@ -69,18 +69,18 @@ a {
 
 @media screen and (max-width: 600px) {
   .logo img {
-    height: 65px;
+    height: 62px;
   }
   .shape1 {
-    height: 200px;
-    width: 400px;
+    height: 400px;
+    width: 600px;
     top: 10%;
     left: -55%;
   }
 
   .shape2 {
-    height: 200px;
-    width: 400px;
+    height: 400px;
+    width: 600px;
     top: 30%;
     right: -55%;
   }

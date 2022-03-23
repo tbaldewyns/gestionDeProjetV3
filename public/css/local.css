@@ -18,11 +18,6 @@
   margin-left: 23px;
 }
 
-.container .border .green,
-.container .border .orange,
-.container .border .red {
-  margin-left: 23px;
-}
 .container .green {
   background-color: blue;
 }
@@ -73,7 +68,7 @@
   color: white;
 }
 #redText {
-  color: red;
+  color: orange;
 }
 
 .legend {

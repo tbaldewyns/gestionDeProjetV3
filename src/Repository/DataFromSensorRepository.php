@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\DataFromSensor;
+use App\Entity\DataSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
@@ -113,6 +114,45 @@ class DataFromSensorRepository extends ServiceEntityRepository
             ->orderBy('d.id', 'DESC')
             ->getQuery()
             ;
+    }
+
+    public function findDataBySearch(DataSearch $dataSearch)
+    {
+
+        $query =  $this->createQueryBuilder('d');
+        if($dataSearch->getType()){
+            $query = $query
+            ->addSelect('r') // to make Doctrine actually use the join
+            ->leftJoin('d.type', 'r')
+            ->andWhere('r.value = :type')
+            ->setParameter('type', $dataSearch->getType());
+        }
+        if($dataSearch->getLocal()){
+            $query = $query
+            ->andWhere('d.local = :local')
+            ->setParameter('local', $dataSearch->getLocal());
+        }
+        if($dataSearch->getFrequence()){
+            $query = $query
+            ->andWhere('d.sendedAt >= :date');
+            if($dataSearch->getFrequence() == "Week"){
+                $query = $query ->setParameter('date', new \DateTime('-7 days'));
+            }
+            else if($dataSearch->getFrequence() == "Month"){
+                $query = $query ->setParameter('date', new \DateTime('-1 month'));
+            }else if($dataSearch->getFrequence() == "Trismeste"){
+                $query = $query ->setParameter('date', new \DateTime('-3 months'));
+            }else{
+                $query = $query ->setParameter('date', new \DateTime('-1 year'));
+            }
+            
+        }
+            $query = $query ->orderBy('d.id', 'DESC')
+            ->getQuery()
+            ->getResult()
+            ;
+
+            return $query;
     }
 
     public function findLastDataByLocal($local): ?DataFromSensor

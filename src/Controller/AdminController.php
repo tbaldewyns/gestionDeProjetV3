@@ -2,10 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\DataSearch;
+use App\Form\DataSearchType;
 use App\Repository\DataFromSensorRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdminController extends AbstractController
 {
@@ -16,10 +19,21 @@ class AdminController extends AbstractController
     }
 
     #[Route('/admin/showData', name: 'showData')]
-    public function showData(DataFromSensorRepository $dataFromSensorRepo): Response
+    public function showData(Request $request, DataFromSensorRepository $dataFromSensorRepo): Response
     {
-        $datas = $dataFromSensorRepo->findAll();
-          
+        $search = new DataSearch();
+
+        $searchForm = $this->createForm(DataSearchType::class, $search);
+
+        $searchForm->handleRequest($request);
+
+        $datas = $dataFromSensorRepo->findDataBySearch($search);
+        
+        if ($datas == null){
+            $this->redirectToRoute("noData", [
+            'local' => "HELB"
+        ]);
+        }
         $co2DataValue = [];
         $humidityDataValue = [];
         $temperatureDataValue = [];
@@ -36,7 +50,7 @@ class AdminController extends AbstractController
             if ($dataForChart->getType()->getValue() == "CO2") {
                 $midValue = $dataForChart->getValue();
                 $co2DataValue[] = $midValue;
-                $co2Date[] = $dataForChart->getSendedAt()->format("d-m-y h:i a");
+                $co2Date[] = $dataForChart->getSendedAt()->format("d-m-y G:i");
 
                 if($midValue < 600){
                     $goodCo2Counter ++;
@@ -47,12 +61,12 @@ class AdminController extends AbstractController
                 }
             } else if ($dataForChart->getType()->getValue() == "Humidity") {
                 $humidityDataValue[] = $dataForChart->getValue();
-                $humidityDate[] = $dataForChart->getSendedAt()->format("d-m-y h:i a");
+                $humidityDate[] = $dataForChart->getSendedAt()->format("d-m-y G:i");
 
 
             } else if ($dataForChart->getType()->getValue() == "Temperature") {
                 $temperatureDataValue[] = $dataForChart->getValue();
-                $temperatureDate[] = $dataForChart->getSendedAt()->format("d-m-y h:i a");
+                $temperatureDate[] = $dataForChart->getSendedAt()->format("d-m-y G:i");
 
 
             }
@@ -69,7 +83,8 @@ class AdminController extends AbstractController
             'temperatureDate' => json_encode($temperatureDate),
             'goodCo2Counter' => json_encode($goodCo2Counter),
             'midCo2Counter' => json_encode($midCo2Counter),
-            'badCo2Counter' => json_encode($badCo2Counter),
+            'badCo2Counter' => json_encode($badCo2Counter), 
+            'searchForm' => $searchForm->createView(),
         ]);
     }
 
@@ -91,7 +106,13 @@ class AdminController extends AbstractController
         $dataASC = $dataFromSensorRepo->findByLocal($local, "ASC");
         $dataFromDB = $dataFromSensorRepo->findByLocal($local, "DESC");
         $lastData = $dataFromSensorRepo->findLastDataByLocal($local);
-          
+        
+        if ($dataASC == null || $dataFromDB == null || $lastData == null){
+            return $this->redirectToRoute("noData", [
+            'local' => $local
+        ]);
+        }
+
         $co2DataValue = [];
         $humidityDataValue = [];
         $temperatureDataValue = [];
@@ -108,7 +129,7 @@ class AdminController extends AbstractController
             if ($dataForChart->getType()->getValue() == "CO2") {
                 $midValue = $dataForChart->getValue();
                 $co2DataValue[] = $midValue;
-                $co2Date[] = $dataForChart->getSendedAt()->format("d-m-y h:i a");
+                $co2Date[] = $dataForChart->getSendedAt()->format("d-m-y G:i");
 
                 if($midValue < 600){
                     $goodCo2Counter ++;
@@ -119,11 +140,11 @@ class AdminController extends AbstractController
                 }
             } else if ($dataForChart->getType()->getValue() == "Humidity") {
                 $humidityDataValue[] = $dataForChart->getValue();
-                $humidityDate[] = $dataForChart->getSendedAt()->format("d-m-y h:i a");
+                $humidityDate[] = $dataForChart->getSendedAt()->format("d-m-y G:i");
 
             } else if ($dataForChart->getType()->getValue() == "Temperature") {
                 $temperatureDataValue[] = $dataForChart->getValue();
-                $temperatureDate[] = $dataForChart->getSendedAt()->format("d-m-y h:i a");
+                $temperatureDate[] = $dataForChart->getSendedAt()->format("d-m-y G:i");
 
             }
             
@@ -131,8 +152,7 @@ class AdminController extends AbstractController
         $currentData = new \DateTime("now");
         $dateLastData = $lastData->getSendedAt();
         $interval = $currentData->diff($dateLastData);
-        //dd($tabCo2Counter);
-        //dd($humidityDataValue);
+        
 
         return $this->render('admin/localDetails.html.twig', [
             'datas' => $dataFromDB,
@@ -149,6 +169,14 @@ class AdminController extends AbstractController
             'midCo2Counter' => json_encode($midCo2Counter),
             'badCo2Counter' => json_encode($badCo2Counter),
 
+        ]);
+    }
+
+    #[Route('/admin/noData/{local}', name: 'noData')]
+    public function noData(String $local): Response
+    {
+        return $this->render('admin/noData.html.twig', [
+            'local' => $local
         ]);
     }
 }
