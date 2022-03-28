@@ -12,7 +12,7 @@
 <div class="container">
     <center>
         <div class="dataDetails">
-            <div class="border">
+            <div class="localBorder">
                 {% if lastData.value < 600 %} 
                     <div class="green">
                 {% elseif lastData.value < 900 %} 
@@ -21,17 +21,14 @@
                     <div class="red">
                             {% endif %}
                             <div class="date">
-                                <p>{{lastData.sendedAt |date('d-m-Y G:i')}}</p>
+                                {{lastData.sendedAt |date('d-m-Y G:i')}}
                             </div>
                             <div class="value">
-                                <p>
-                                    {% if lastData.type == "CO2" %}
-                                    {{lastData.value}} ppm
-                                    {% else %}
-                                    0
-                                    {% endif %}
-                                </p>
+                                {{lastData.value}} ppm 
                             </div>
+                            <div class="local">
+                                    local {{lastData.local}}
+                                </div>
                             {% if interval.i < 6 and interval.h < 1 and interval.d < 1 and interval.m < 1 %} 
                             <div class="diffDate" id="whiteText">
                                 {% else %}
@@ -71,18 +68,24 @@
             </div>
         </div>
         <div class="lineCharts">
+            {% if co2DataValue|length > 2%}
             <div class="charts">
                 <canvas id="pieChart"></canvas>
             </div>
             <div class="charts">
                 <canvas id="co2Chart"></canvas>
             </div>
+            {% endif %}
+            {% if humidityDataValue|length > 2%}
             <div class="charts">
                 <canvas id="humidityChart"></canvas>
             </div>
+            {% endif %}
+            {% if temperatureDataValue|length > 2%}
             <div class="charts">
                 <canvas id="temperatureChart"></canvas>
             </div>
+            {% endif %}
         </div>
     </center>
 
@@ -101,7 +104,7 @@
             datasets: [{
                 label: "C0²",
                 data: {{ co2DataValue|raw }},
-                backgroundColor: "lightblue"
+                backgroundColor: "rgba(102, 192, 210, 1)"
             }]
         },
         options: {
@@ -111,7 +114,7 @@
                     ticks: {
                         beginAtZero: true,
                         min: 0,
-                        max: 1000                          
+                        max: 3000                          
                     }                  
                     
                 }]
@@ -129,7 +132,7 @@
             datasets: [{
                 label: "Humidity",
                 data: {{ humidityDataValue|raw }},
-                backgroundColor: "violet"
+                backgroundColor: "rgba(102, 192, 210, 1)"
             }]
         },
         options: {
@@ -157,7 +160,7 @@
             datasets: [{
                 label: "Temperature",
                 data: {{ temperatureDataValue|raw }},
-                backgroundColor: "blueviolet"
+                backgroundColor: "rgba(102, 192, 210, 1)"
             }]
         },
         options: {
@@ -184,7 +187,7 @@
             labels: ["<600", ">600 & < 900", ">900"],
             datasets: [{
                 data:[{{goodCo2Counter}}, {{midCo2Counter}}, {{badCo2Counter}}],
-                backgroundColor: ["blue", "violet", "black"] 
+                backgroundColor: ["lightgrey", "blue", "#ddf636"] 
             }]
         },
             options: {

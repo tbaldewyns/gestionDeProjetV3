@@ -24,7 +24,7 @@ table {
 
 .link p svg {
   height: 100px;
-  color: blueviolet;
+  color: rgba(102, 192, 210, 1);
   text-align: center;
   padding-top: 15%;
 }

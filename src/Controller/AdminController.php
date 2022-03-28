@@ -153,7 +153,6 @@ class AdminController extends AbstractController
         $dateLastData = $lastData->getSendedAt();
         $interval = $currentData->diff($dateLastData);
         
-
         return $this->render('admin/localDetails.html.twig', [
             'datas' => $dataFromDB,
             'lastData' => $lastData,

@@ -22,6 +22,9 @@
                     <div class="value">
                         {{lastData.value}} ppm
                     </div>
+                    <div class="local">
+                        local {{lastData.local}}
+                    </div>
                     {% if interval.i < 6 and interval.h < 1  and interval.d < 1  and interval.m < 1 %}
                         <div class="diffDate" id="whiteText">
                     {% else %}

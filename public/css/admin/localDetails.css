@@ -52,7 +52,7 @@
 }
 .history th {
   border: 1px solid;
-  background-color: blueviolet;
+  background-color: rgba(102, 192, 210, 1);
   color: white;
   margin: 5px;
   padding: 5px;
@@ -73,7 +73,7 @@
   color: white;
 }
 #redText {
-  color: orange;
+  color: #6c3e33;
 }
 .pieChart {
   position: absolute;

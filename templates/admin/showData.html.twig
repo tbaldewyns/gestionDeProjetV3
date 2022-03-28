@@ -32,19 +32,25 @@
 
             {{form_end(searchForm)}}
         </div>
-        <div class="charts">
-            <canvas id="co2Chart"></canvas>
-        </div>
-        <div class="charts">
-            <canvas id="humidityChart"></canvas>
-        </div>
-        <div class="charts">
-            <canvas id="temperatureChart"></canvas>
-        </div>
-        
-        <div class="charts">
-            <canvas id="pieChart"></canvas>
-        </div>
+
+        {% if co2DataValue|length > 2%}
+            <div class="charts">
+                <canvas id="pieChart"></canvas>
+            </div>
+            <div class="charts">
+                <canvas id="co2Chart"></canvas>
+            </div>
+            {% endif %}
+            {% if humidityDataValue|length > 2%}
+            <div class="charts">
+                <canvas id="humidityChart"></canvas>
+            </div>
+            {% endif %}
+            {% if temperatureDataValue|length > 2%}
+            <div class="charts">
+                <canvas id="temperatureChart"></canvas>
+            </div>
+        {% endif %}
         
         <div class="datas">
             <h1>Tab of data</h1>
@@ -57,8 +63,14 @@
                     <th>N°Capteur</th>
                     <th>Date</th>
                 </tr>
-
-                {% for data in datas %}
+                {% if datas == null %}
+                    <tr>
+                        <td colspan="6">
+                            No data
+                        </td>
+                    </tr>
+                {% else %}
+                    {% for data in datas %}
                     <tr>
                         {% if data.type.value == "CO2" %}
                         <td>{{data.value}} ppm</td>
@@ -75,6 +87,10 @@
                         <td>{{data.sendedAt |date('d-m-Y G:i')}}</td>
                     </tr>
                 {% endfor %}
+                {% endif %}
+                
+
+                
             </table>
         </div>
     </center>
@@ -93,7 +109,7 @@
     datasets: [{
         label: "C0²",
         data: {{ co2DataValue| raw }},
-        backgroundColor: "lightblue"
+        backgroundColor: "rgba(102, 192, 210, 1)"
             }]
         },
     options: {
@@ -121,7 +137,7 @@
     datasets: [{
         label: "Humidity",
         data: {{ humidityDataValue| raw }},
-        backgroundColor: "violet"}]
+        backgroundColor: "rgba(102, 192, 210, 1)"}]
         },
     options: {
         maintainAspectRatio: true,
@@ -148,7 +164,7 @@
     datasets: [{
         label: "Temperature",
         data: {{ temperatureDataValue| raw }},
-        backgroundColor: "blueviolet"
+        backgroundColor: "rgba(102, 192, 210, 1)"
             }]
         },
     options: {
@@ -175,7 +191,7 @@
             labels: ["<600", ">600 & < 900", ">900"],
             datasets: [{
                 data: [{{ goodCo2Counter }}, {{ midCo2Counter }}, {{ badCo2Counter }}],
-            backgroundColor: ["blue", "violet", "black"] 
+            backgroundColor: ["lightgrey", "blue", "#ddf636"] 
             }]
         },
     options: {
