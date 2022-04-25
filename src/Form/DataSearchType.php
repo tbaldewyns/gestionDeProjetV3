@@ -30,9 +30,8 @@ class DataSearchType extends AbstractType
                     "1303" => "1303",
                     "2503" => "2503"
                 ],
-                'required' => false,
-                'label' => false,
-                'placeholder' => "Local",
+                'required' => true,
+                'label' => false
             ])
             ->add('frequence', ChoiceType::class, [
                 "choices" => [

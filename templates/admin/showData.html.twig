@@ -24,10 +24,13 @@
                 </div>
                 <div class="input">
                     {{form_row(searchForm.frequence)}}
-                </div>            
-            </div>
-            <div class="searchBtn">
-                <button type="submit">Search</button>
+                </div>
+                <div class="input">
+                    <button type="submit">Search</button>
+                </div>
+                <div class="input" id="downloadBtn">
+                    <a href="{{path('downloadData')}}">Download pdf</a>
+                </div>
             </div>
 
             {{form_end(searchForm)}}
@@ -88,9 +91,6 @@
                     </tr>
                 {% endfor %}
                 {% endif %}
-                
-
-                
             </table>
         </div>
     </center>
@@ -100,6 +100,9 @@
 {% endblock %}
 
 {% block javascripts %}
+
+<script src="{{ asset('js/filtres.js') }}"></script>
+
 <script>
     let co2Categories = document.querySelector("#co2Chart")
     let co2categGraph = new Chart(co2Categories, {
@@ -191,7 +194,7 @@
             labels: ["<600", ">600 & < 900", ">900"],
             datasets: [{
                 data: [{{ goodCo2Counter }}, {{ midCo2Counter }}, {{ badCo2Counter }}],
-            backgroundColor: ["lightgrey", "blue", "#ddf636"] 
+            backgroundColor: ["green", "orange", "red"] 
             }]
         },
     options: {

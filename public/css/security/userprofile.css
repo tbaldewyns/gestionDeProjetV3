@@ -1,3 +1,6 @@
+.backBtn {
+  display: none;
+}
 table {
   border-collapse: collapse;
 }

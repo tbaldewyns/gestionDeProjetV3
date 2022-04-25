@@ -17,7 +17,7 @@
                 <div class="red">  
                 {% endif %}
                     <div class="date">
-                        {{lastData.sendedAt |date('d-m-Y g:i a')}}
+                        {{lastData.sendedAt |date('d-m-Y G:i')}}
                     </div>
                     <div class="value">
                         {{lastData.value}} ppm
@@ -25,27 +25,13 @@
                     <div class="local">
                         local {{lastData.local}}
                     </div>
-                    {% if interval.i < 6 and interval.h < 1  and interval.d < 1  and interval.m < 1 %}
+                    {% if interval.i > 6 or interval.h >= 1 or interval.d >= 1 or interval.m >= 1 %}
                         <div class="diffDate" id="whiteText">
-                    {% else %}
-                        <div class="diffDate" id="redText">
-                    {% endif %}
-                
                         <p>La dernière mesure à été prise il y a :</p>
-                        <p>{{interval.m}} mois, {{interval.d}} jour(s), {{interval.h}} heure(s), {{interval.i}} minute(s), {{interval.s}} seconde(s), </p>
-                    </div>
+                        <p>{{interval.m}} mois, {{interval.d}} jour(s), {{interval.h}} heure(s), {{interval.i}} minute(s), {{interval.s}} seconde(s) </p>
+                        </div>
+                    {% endif %}
                 </div>
-            </div>
-        </div>
-        <div class="legend">
-            <div class="greenCode">
-                <p>Taux de CO2 bon</p>
-            </div>
-            <div class="orangeCode">
-                <p>Taux de CO2 moyen</p>
-            </div>
-            <div class="redCode">
-                <p>Taux de CO2 anormalement haut</p>
             </div>
         </div>
     </center>

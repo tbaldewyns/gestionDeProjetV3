@@ -16,14 +16,14 @@
 }
 
 .container .green {
-  background-color: grey;
+  background-color: green;
 }
 .container .orange {
-  background-color: #3a55d6;
+  background-color: orange;
 }
 
 .container .red {
-  background-color: yellow;
+  background-color: red;
 }
 
 .localBorder {
@@ -67,29 +67,4 @@
 
 #whiteText {
   color: white;
-}
-#redText {
-  color: #6c3e33;
-}
-
-.legend {
-  margin-top: 15px;
-}
-.legend div {
-  padding: 5px;
-  margin: 5px;
-  width: 250px;
-  border-radius: 10px;
-}
-.legend div p {
-  color: white;
-}
-.greenCode {
-  background-color: grey;
-}
-.orangeCode {
-  background-color: #3a55d6;
-}
-.redCode {
-  background-color: #ddf636;
 }

@@ -26,19 +26,13 @@
                             <div class="value">
                                 {{lastData.value}} ppm 
                             </div>
-                            <div class="local">
-                                    local {{lastData.local}}
-                                </div>
-                            {% if interval.i < 6 and interval.h < 1 and interval.d < 1 and interval.m < 1 %} 
+                            {% if interval.i >= 5 or interval.h > 0 or interval.d > 0 or interval.m > 0 %}
                             <div class="diffDate" id="whiteText">
-                                {% else %}
-                                <div class="diffDate" id="redText">
-                                    {% endif %}
-        
-                                    <p>La dernière mesure à été prise il y a :</p>
-                                    <p>{{interval.m}} mois, {{interval.d}} jour(s), {{interval.h}} heure(s), {{interval.i}}
-                                        minute(s), {{interval.s}} seconde(s), </p>
-                                </div>
+                                <p>La dernière mesure à été prise il y a :</p>
+                                <p>{{interval.m}} mois, {{interval.d}} jour(s), {{interval.h}} heure(s), {{interval.i}} minute(s), {{interval.s}}
+                                    seconde(s) </p>
+                            </div>
+                            {% endif %}
                     </div>
             </div>
         
@@ -187,7 +181,7 @@
             labels: ["<600", ">600 & < 900", ">900"],
             datasets: [{
                 data:[{{goodCo2Counter}}, {{midCo2Counter}}, {{badCo2Counter}}],
-                backgroundColor: ["lightgrey", "blue", "#ddf636"] 
+                backgroundColor: ["green", "orange", "red"] 
             }]
         },
             options: {

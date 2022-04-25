@@ -9,6 +9,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Dompdf\Dompdf as Dompdf;
+use Dompdf\Options;
 
 class AdminController extends AbstractController
 {
@@ -177,5 +179,49 @@ class AdminController extends AbstractController
         return $this->render('admin/noData.html.twig', [
             'local' => $local
         ]);
+    }
+
+    #[Route('/admin/downloadData/', name: 'downloadData')]
+    public function downloadData(Request $request, DataFromSensorRepository $dataFromSensorRepo)
+    {
+        $currentDate = new \DateTime("now");
+
+        $search = new DataSearch();
+
+        $searchForm = $this->createForm(DataSearchType::class, $search);
+
+        $searchForm->handleRequest($request);
+
+        $datas = $dataFromSensorRepo->findDataBySearch($search);            
+        
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+        $pdfOptions->setIsRemoteEnabled(true);
+
+        $dompdf = new Dompdf($pdfOptions);
+        $context = stream_context_create([
+            'ssl' => [
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            ]
+        ]);
+        $dompdf->setHttpContext($context);
+
+        $html = $this->renderView('admin/downloadData.html.twig',[
+            'datas' => $datas
+        ]);
+
+        $dompdf->loadHtml($html);
+        $dompdf->setPaper('A4', 'portrait');
+        $dompdf->render();
+
+        $fichier = 'infos'.$currentDate->format("d-m-yG:i").".pdf";
+
+        $dompdf->stream($fichier, [
+            'Attachement' => true
+        ]);
+
+        return new Response();
     }
 }

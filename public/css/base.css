@@ -2,6 +2,20 @@
   font-family: "Times New Roman", Times, serif;
 }
 
+.backBtn {
+  position: absolute;
+  top: 7%;
+  left: 15%;
+}
+.backBtn a svg {
+  color: white;
+  font-weight: bold;
+  height: 30px;
+}
+
+.backBtn:hover {
+  cursor: pointer;
+}
 body {
   overflow-x: hidden;
   background: linear-gradient(
